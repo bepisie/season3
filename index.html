@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Episode Viewer</title>
+<style>
+    body {
+        background-color: black;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    #container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #iframe-container {
+        margin: 20px;
+    }
+    button {
+        background-color: green;
+        color: white;
+        padding: 10px 20px;
+        margin: 5px;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<div id="container">
+    <div id="iframe-container">
+        <iframe id="episode-iframe" src="initial_episode.html" width="800" height="600" frameborder="0"></iframe>
+    </div>
+    <div>
+        <button id="prev-episode"><< Last Episode</button>
+        <button id="next-episode">Next Episode >></button>
+    </div>
+</div>
+
+<script>
+    const iframe = document.getElementById('episode-iframe');
+    const prevButton = document.getElementById('prev-episode');
+    const nextButton = document.getElementById('next-episode');
+
+    // Initial episode URL
+    let currentEpisodeIndex = 0;
+    const episodeURLs = [
+        'episode1.html',
+        'episode2.html',
+        'episode3.html',
+        'episode4.html',
+        'episode5.html'
+    ];
+
+    // Function to load the episode based on the index
+    function loadEpisode(index) {
+        iframe.src = episodeURLs[index];
+    }
+
+    // Event listeners for buttons
+    prevButton.addEventListener('click', () => {
+        currentEpisodeIndex = (currentEpisodeIndex - 1 + episodeURLs.length) % episodeURLs.length;
+        loadEpisode(currentEpisodeIndex);
+    });
+
+    nextButton.addEventListener('click', () => {
+        currentEpisodeIndex = (currentEpisodeIndex + 1) % episodeURLs.length;
+        loadEpisode(currentEpisodeIndex);
+    });
+</script>
+
+</body>
+</html>
